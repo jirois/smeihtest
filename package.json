@@ -19,7 +19,7 @@
     "lint": "eslint \"src/**/*.js\"",
      "start": "npm run init-db && npx nodemon --exec babel-node server.js",
     "sequelize-skeleton": "npx sequelize init:models; npx sequelize init:config",
-    "init-db": "cd C:\\xampp7\\mysql\\bin && echo 'DROP DATABASE IF EXISTS smeinvest_db; CREATE DATABASE smeinvest_db CHARACTER SET utf8 COLLATE utf8_general_ci' | ./mysql -u root && cd -"
+    "init-db": "cd C:\\xampp7\\mysql\\bin && echo 'DROP DATABASE IF EXISTS smeinvest_development; CREATE DATABASE smeinvest_development CHARACTER SET utf8 COLLATE utf8_general_ci' | ./mysql -u root && cd -"
   },
   "author": {
     "name": "Build For SDG",

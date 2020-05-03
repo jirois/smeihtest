@@ -24,16 +24,16 @@ process.env.NODE_ENV = process.env.NODE_ENV || config.dev;
 config.env = process.env.NODE_ENV;
 
 let envConfig;
+let config = `./${config.env}`;
 try {
-  envConfig = require(`./${config.env}`);
+  envConfig = require(config);
   // fallback to empty object if file does not exist
   envConfig = envConfig || {};
 } catch (err) {
-
   envConfig = {};
   // console.error('Error reading .env file');
 }
 
 // Merge configs so envConfig overwrites the config object
 module.exports = _.merge(config, envConfig);
-
+//end

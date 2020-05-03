@@ -1,4 +1,3 @@
-'use strict';
 
 const _ = require('lodash');
 const fs = require('fs');
@@ -7,6 +6,7 @@ fs.createReadStream('.sample-env')
   .pipe(fs.createWriteStream('../.env'));
 
 const dotenv = require('dotenv');
+
 dotenv.load();
 
 const config = {
@@ -25,13 +25,15 @@ config.env = process.env.NODE_ENV;
 
 let envConfig;
 try {
-  envConfig = require('./' + config.env);
+  envConfig = require(`./${config.env}`);
   // fallback to empty object if file does not exist
   envConfig = envConfig || {};
-} catch(err) {
+} catch (err) {
+
   envConfig = {};
-  console.error('Error reading .env file');
+  // console.error('Error reading .env file');
 }
 
 // Merge configs so envConfig overwrites the config object
 module.exports = _.merge(config, envConfig);
+

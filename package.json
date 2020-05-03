@@ -17,7 +17,7 @@
     "test:watch": "jest --watch",
     "test:cover": "jest --coverage",
     "lint": "eslint \"src/**/*.js\"",
-     "start": "npm run init-db && npx nodemon --exec babel-node server.js",
+    "start": "npm run init-db && npx nodemon --exec babel-node server.js",
     "sequelize-skeleton": "npx sequelize init:models; npx sequelize init:config",
     "init-db": "cd C:\\xampp7\\mysql\\bin && echo 'DROP DATABASE IF EXISTS smeinvest_development; CREATE DATABASE smeinvest_development CHARACTER SET utf8 COLLATE utf8_general_ci' | ./mysql -u root && cd -"
   },
@@ -37,6 +37,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "lodash": "^4.17.15",
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.7"
   },

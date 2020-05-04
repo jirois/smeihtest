@@ -14,7 +14,7 @@ app.set('port', process.env.PORT || 7000);
 
 // Body parser
 app.use(logger('dev'));
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 
@@ -22,6 +22,4 @@ app.use(express.json());
 app.use(cors());
 
 
-app.listen(app.get('port'), ()=>{
-  console.log(`Server started and listening at ${app.get('port')}`);
-});
+app.listen(app.get('port'), ()=> { console.log(`Server started and listening at ${app.get('port')}` ) });

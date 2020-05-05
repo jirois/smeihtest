@@ -7,7 +7,7 @@ const logger = require('morgan');
 const app = express();
 
 // env config variable
-dotenv.config({ path: './.sample-enve' });
+dotenv.config({ path: './.sample-env' });
 
 app.set('port', process.env.PORT || 7000);
 
@@ -23,4 +23,3 @@ app.use(cors());
 
 
 app.listen(app.get('port'));
-

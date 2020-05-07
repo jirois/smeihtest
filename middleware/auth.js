@@ -1,3 +1,7 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-shadow */
+/* eslint-disable no-console */
 const passport = require('passport');
 const JWT = require('jsonwebtoken');
 const PassportJwt = require('passport-jwt');
@@ -10,18 +14,17 @@ const JWT_EXPIRES_IN = '7 days';
 // Use "createStrategy" instead of "authenticate".
 // See https://github.com/saintedlama/passport-local-mongoose
 passport.use(User.createStrategy());
-
 // Middleware for Passport Authentication
 const register = (req, res, next) => {
-
   console.log('Middleware for Passport Registration');
   // Create new User model
   const user = new User({
     email: req.body.email,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    phonenumber: req.body.phonenumber
-  })
+    phonenumber: req.body.phonenumber,
+    accountType: req.body.accountType
+  });
 
   // Pass the User model to the Passport `register` method
   User.register(user, req.body.password, (error, user) => {
@@ -34,8 +37,8 @@ const register = (req, res, next) => {
     // Store user so we can access in our handler
     req.user = user;
     next();
-  })
-}
+  });
+};
 
 const jwtOptions = {
   // Authorization: Bearer in request headers
@@ -43,7 +46,7 @@ const jwtOptions = {
   secretOrKey: JWT_SECRET,
   // Algorithms used to sign in
   algorithms: [JWT_ALGORITHM]
-}
+};
 
 // Passport JWT Strategy triggered by validateJWTWithPassportJWT
 // https://www.npmjs.com/package/passport-jwt
@@ -63,23 +66,21 @@ passport.use(new PassportJwt.Strategy(jwtOptions,
       })
       .catch((error) => {
         done(error, false);
-      })
-  }
-))
+      });
+  }));
 
 const validateJWTManually = (req, res, next) => {
   // Extract token without "JWT " or "Bearer " prefix
-  const token = req.headers.authorization ? req.headers.authorization.split(" ")[1] : null;
+  const token = req.headers.authorization ? req.headers.authorization.split(' ')[1] : null;
   if (token) {
     // https://github.com/auth0/node-jsonwebtoken
-    JWT.verify(token, JWT_SECRET, function(error, decodedToken) {
+    JWT.verify(token, JWT_SECRET, (error, decodedToken) => {
       if (error) {
         res.status(401).json({
           message: 'Error: Token invalid'
         });
         console.error('Error: Token invalid: ', error);
         next(error);
-        return;
       } else {
         req.user = decodedToken;
         User.find({ email: decodedToken.email })
@@ -93,7 +94,6 @@ const validateJWTManually = (req, res, next) => {
               });
               console.error('Error: Token valid but user no longer exists in database: ', error);
               next(error);
-              return;
             }
           })
           .catch((error) => {
@@ -102,25 +102,22 @@ const validateJWTManually = (req, res, next) => {
             });
             console.error('Error: Token valid but error occurred retrieving user from database: ', error);
             next(error);
-            return;
-          })
+          });
       }
     });
   } else {
     res.status(401).json({
-      message: "Error: No Token provided"
+      message: 'Error: No Token provided'
     });
     console.error('Error: No Token provided: ', error);
     next(error);
-    return;
   }
-}
+};
 
 // JWT signed token - http://jwt.io/
 const signJWTForUser = (req, res) => {
-
   // Obtain user from request object
-  const user = req.user;
+  const { user } = req;
 
   // Create signed JWT
   const token = JWT.sign(
@@ -136,19 +133,19 @@ const signJWTForUser = (req, res) => {
       algorithm: JWT_ALGORITHM,
       expiresIn: JWT_EXPIRES_IN
     }
-  )
+  );
 
   // Return token in response object
   res.json({
-    token: token
-  })
-}
+    token
+  });
+};
 
 module.exports = {
   initialize: passport.initialize(),
-  register: register,
+  register,
   signIn: passport.authenticate('local', { session: false }),
-  signJWTForUser: signJWTForUser,
+  signJWTForUser,
   validateJWTWithPassportJWT: passport.authenticate('jwt', { session: false }),
-  validateJWTManually: validateJWTManually
-}
+  validateJWTManually
+};

@@ -13,13 +13,16 @@
     "test": "__tests__"
   },
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cover": "jest --coverage",
-    "lint": "eslint \"src/**/*.js\"",
-    "start": "npm run init-db && npx nodemon --exec babel-node server.js",
-    "sequelize-skeleton": "npx sequelize init:models; npx sequelize init:config",
-    "init-db": "cd C:\\xampp7\\mysql\\bin && echo 'DROP DATABASE IF EXISTS smeinvest_development; CREATE DATABASE smeinvest_development CHARACTER SET utf8 COLLATE utf8_general_ci' | ./mysql -u root && cd -"
+    "mongod": "mongod",
+    "dev": "NODE_ENV=development nodemon server.js",
+    "compile": "node lib/compileContract.js smeih",
+    "deploy": "node lib/deployContract.js smeih",
+    "curl": "curl -v -X POST http://localhost:7000/contracts/generate -d '{\"contractName\":\"smeih\"}' -H 'Content-Type: application/json'",
+    "seed": "node ./models/seeds.js",
+    "drop": "node ./models/drop.js",
+    "reset": "npm run drop && npm run seed",
+    "test": "truffle test; NODE_ENV=testing mocha --recursive _tests_/**/*_test.js",
+    "test-watch": "nodemon --exec \"yarn test\""
   },
   "author": {
     "name": "Build For SDG",
@@ -36,12 +39,20 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "config": "^3.3.1",
     "cors": "^2.8.5",
+    "eth-lightwallet": "^4.0.0",
+    "ethereumjs-tx": "1.3",
+    "ethereumjs-util": "4.4",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
+    "mongoose": "^4.13.7",
     "morgan": "^1.10.0",
-    "mysql2": "^2.1.0",
-    "sequelize": "^5.21.7"
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.4.0",
+    "web3": "^1.2.7"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -50,16 +61,22 @@
     "babel-jest": "^25.4.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-3": "^6.24.1",
+    "chai": "^4.2.0",
+    "chai-http": "^3.0.0",
+    "dotenv": "^4.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
+    "ether-pudding": "^3.2.0",
     "faker": "^4.1.0",
     "jest": "^25.4.0",
     "lodash.random": "^3.2.0",
     "lodash.times": "^4.3.2",
+    "mocha": "^4.0.1",
     "nodemon": "^2.0.3",
     "parcel-bundler": "^1.12.4",
-    "sequelize-cli": "^5.5.1"
+    "solc": "^0.4.18",
+    "truffle-artifactor": "^3.0.1"
   },
   "browserslist": [
     "last 1 Chrome versions"

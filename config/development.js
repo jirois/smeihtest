@@ -1,8 +1,7 @@
 module.exports = {
-  logging: false,
-  username: 'root',
-  password: null,
-  database: 'smeinvest_development',
-  host: '127.0.0.1',
-  dialect: 'mysql'
+  logging: true,
+  db: {
+    url: 'mongodb://localhost/smeih'
+  },
+  port: 7000
 };

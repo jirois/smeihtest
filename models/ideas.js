@@ -2,10 +2,8 @@ const mongoose = require('mongoose');
 
 const ideasSchema = new mongoose.Schema({
     investeeId: {
-        id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'investee'
-        }
     },
 
     businessTitle: {

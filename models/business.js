@@ -50,11 +50,26 @@ const ideasSchema = new mongoose.Schema({
         type: String,
         trim: true,
         default: 'pending'
+    },
+
+    goal: {
+        type: String,
+        trim: true
+    },
+
+    deadline: {
+        type: Date,
+    },
+
+    validated: {
+        type: Boolean,
+        default: false
     }
+    
 }, {
     timestamps: true
 });
 
-let Idea = mongoose.model('idea', ideasSchema);
+let Business = mongoose.model('business', ideasSchema);
 
-module.exports = Idea;
+module.exports = Business;

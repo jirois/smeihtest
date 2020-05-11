@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const milestonesSchema = new mongoose.Schema({
     businessID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'idea'
+        ref: 'business'
     },
 
     milestone: {

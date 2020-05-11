@@ -8,7 +8,7 @@ const transactionsSchema = new mongoose.Schema({
     
     businessId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'idea'
+        ref: 'business'
     },
 
     investorId: {

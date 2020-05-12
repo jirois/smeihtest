@@ -1,34 +1,29 @@
 const mongoose = require('mongoose');
 
 const milestoneValidationSchema = new mongoose.Schema({
-    validator: {
-        validatorId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'user'
-        }, 
-        required: true
-    },
+  validator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
+  },
 
-    milestoneReport: {
-        milestoneReportId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'milestoneReport'
-        },
-        required: true
-    },
+  milestoneReport: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'milestoneReport'
+  },
 
-    remark: {
-        type: String,
-        trim: true
-    },
+  remark: {
+    type: String,
+    trim: true
+  },
 
-    verdict: {
-        type: Number,
-        default: 0
-    }
+  verdict: {
+    type: Number,
+    default: 0
+  }
+
 }, {
-    timestamps: true
-})
+  timestamps: true
+});
 
 const milestoneValidation = mongoose.model('milestoneValidation', milestoneValidationSchema);
 

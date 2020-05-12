@@ -1,22 +1,19 @@
 const mongoose = require('mongoose');
 
 const milestoneReportSchema = new mongoose.Schema({
-    milestoneID: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'milestone'
-        },
-        required: true
-    },
+  milestoneID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'milestone'
+  },
 
-    proof: {
-        type: String,
-        required: true,
-        trim: true
-    }
+  proof: {
+    type: String,
+    trim: true
+  }
+
 }, {
-    timestamps: true
-})
+  timestamps: true
+});
 
 const milestoneReport = mongoose.model('milestoneReport', milestoneReportSchema);
 

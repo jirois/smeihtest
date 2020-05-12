@@ -1,26 +1,24 @@
 const mongoose = require('mongoose');
 
 const settingsSchema = new mongoose.Schema({
-    user: {
-        userId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'user'
-        },
-        required: true
-    },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
+  },
 
-    optionKey: {
-        type: String,
-        required: true
-    }, 
+  optionKey: {
+    type: String,
+    required: true
+  }, 
 
-    value: {
-        type: String
-    }
+  value: {
+    type: String
+ }
+
 }, {
-    timestamps: true
+  timestamps: true
 });
 
-const Setting  = mongoose.model('setting', settingsSchema);
+const Setting = mongoose.model('setting', settingsSchema);
 
 module.exports = Setting;

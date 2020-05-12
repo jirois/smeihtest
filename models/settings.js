@@ -9,11 +9,11 @@ const settingsSchema = new mongoose.Schema({
   optionKey: {
     type: String,
     required: true
-  }, 
+  },
 
   value: {
     type: String
- }
+  }
 
 }, {
   timestamps: true

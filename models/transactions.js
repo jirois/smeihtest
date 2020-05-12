@@ -5,7 +5,7 @@ const transactionsSchema = new mongoose.Schema({
     type: Number,
     unique: true
   },
- 
+
   businessId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'business'

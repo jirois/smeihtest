@@ -1,14 +1,15 @@
 const router = require('express').Router();
 
 const auth = require('../middleware/auth');
-const ctrlInvestee = require('../middleware/investee');
-const ctrlAuditTrail = require('../middleware/auditTrail');
-const ctrlBusiness = require('../middleware/business');
-const ctrlMilestone = require('../middleware/milestones');
-const ctrlMilestoneReport = require('../middleware/milestonesReport');
-const ctrlMilestoneValidation = require('../middleware/milestoneValidation');
-const ctrlTransaction = require('../middleware/transaction');
-const ctrlSetting = require('../middleware/setting');
+const ctrlUser = require('../controllers/user');
+const ctrlInvestee = require('../controllers/investee');
+const ctrlAuditTrail = require('../controllers/auditTrail');
+const ctrlBusiness = require('../controllers/business');
+const ctrlMilestone = require('../controllers/milestones');
+const ctrlMilestoneReport = require('../controllers/milestonesReport');
+const ctrlMilestoneValidation = require('../controllers/milestoneValidation');
+const ctrlTransaction = require('../controllers/transaction');
+const ctrlSetting = require('../controllers/setting');
 
 
 // Investee router
@@ -106,7 +107,27 @@ router
     .put(ctrlSetting.settingUpdate)
     .delete(ctrlSetting.settingDelete);
 
-router.post('/signup', auth.register);
-router.post('/signin', auth.signIn);
+// User sign up and sign in
+router.post('auth/register' , (req, res, next) => {
+    auth.register(req, res, next);
+}, (req, res, next) =>{
+    auth.signIn;
+    next();
+}, auth.signJWTForUser);
+
+router.post('auth', auth.signIn, auth.signJWTForUser);
+
+//User list router
+router
+    .route('user')
+    .get(auth.validateJWTWithPassportJWT, ctrlUser.userList)
+    .post(auth.validateJWTWithPassportJWT, ctrlUser.userCreate)
+
+router
+    .route('user/:userid')
+    .get(ctrlUser.userReadOne)
+    .put(ctrlUser.userUpdate)
+    .delete(ctrlUser.userDelete);
+
 
 module.exports = router;

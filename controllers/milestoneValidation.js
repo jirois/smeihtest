@@ -2,7 +2,8 @@ const AuditTrail = require('../models/auditTrail');
 
 const milestoneValidationList = (req, res) => {
     MilestoneValidation.find()
-        .populate('validator milestoneReport')
+        .populate('validator')
+        .populate('milestoneReport')
         .exec()
         .then((milestoneValidations) => {
             if(milestoneValidations){
@@ -21,7 +22,8 @@ const milestoneValidationList = (req, res) => {
 const milestoneReadOne = (req, res) => {
     const milestoneValidationId = req.param.id;
     MilestoneValidation.findById(milestoneValidationId)
-    .populate('validator milestoneReport')
+    .populate('validator')
+    .populate('milestoneReport')
     .exec()
     .then((milestoneValidation) => {
         if (milestoneValidation) {
@@ -41,12 +43,14 @@ const milestoneReadOne = (req, res) => {
 
 const milestoneValidationCreate = (req, res) => {
         MilestoneValidation.create({
+            userid: validator._id,
+            milestonereportid: milestoneReport._id,
             remark: req.body.remark,
             verdict: req.body.verdict
         })
-        .then(( invest ) =>{
+        .then(( validation ) =>{
             return res.status(201)
-            .json(invest);
+            .json({ data: validation });
         })
         .catch( err => {
             console.log(`Error creating milestoneValidation: ${ err.message }`)

@@ -41,6 +41,7 @@ const auditTrayReadOne = (req, res) => {
 
 const auditTrailCreate = (req, res) => {
         auditTrail.create({
+            user: user._id,
             activity: req.body.activity
         })
         .then(( invest ) =>{

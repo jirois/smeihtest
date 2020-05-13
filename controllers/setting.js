@@ -3,6 +3,7 @@ const Setting = require('../models/setting');
 
 const settingCreate = (req, res) => {
         Setting.create({
+            user: user._id,
             optionKey: req.body.optionKey,
             value: req.body.value
         })

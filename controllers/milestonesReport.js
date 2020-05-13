@@ -41,6 +41,7 @@ const milestoneReportReadOne = (req, res) => {
 
 const milestoneReportCreate = (req, res) => {
         MilestoneReport.create({
+            milestone: milestoneID._id,
             prof: req.body.prof
         })
         .then(( invest ) =>{

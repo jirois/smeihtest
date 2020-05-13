@@ -41,6 +41,7 @@ const businessReadOne = (req, res) => {
 
 const businessCreate = (req, res) => {
         business.create({
+            investid : investeeId._id,
             businessTitle : req.body.businessTitle,
             description : req.body.businessDescription,
             category : req.body.businessCategory,

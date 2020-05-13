@@ -2,7 +2,8 @@ const Transaction = require('../models/transactions');
 
 const transactionList = (req, res) => {
     Transaction.find()
-        .populate('businessId investorId')
+        .populate( 'businessId' )
+        .populate( 'investorId' )
         .exec()
         .then((transactions) => {
             if(transactions){
@@ -21,7 +22,8 @@ const transactionList = (req, res) => {
 const transactionReadOne = (req, res) => {
     const transactionId = req.param.id;
     Transaction.findById(transactionId)
-    .populate('businessId investorId')
+    .populate( 'businessId ' )
+    .populate( 'investorId' )
     .exec()
     .then((transaction) => {
         if (transaction) {
@@ -41,6 +43,8 @@ const transactionReadOne = (req, res) => {
 
 const transactionCreate = (req, res) => {
         Transaction.create({
+            businessid: businessId._id,
+            investorid: investorId._id,
             amount: req.body.amount,
             wallet: req.body.blockchainWallet
         })

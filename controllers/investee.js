@@ -41,7 +41,7 @@ const investReadOne = (req, res) => {
 
 const investeeCreate = (req, res) => {
         Investee.create({
-            phone : req.body.mobilePhone,
+            user : user._id,
             company : req.body.companyName,
             address : req.body.Adress
         })

@@ -7,12 +7,18 @@ const app = express();
 // const usersRouter = require('./routes/users');
 // const contractsRouter = require('./routes/contracts');
 
+const indexRouter = require('./routes/index');
+
 // Middleware Plugins
 app.use(bodyParser.json()); // allow JSON uploads
 app.use(bodyParser.urlencoded({ extended: true })); // allow Form submissions
 app.use(authMiddleware.initialize);
 // app.use('/users', usersRouter);
 // app.use('/contracts', contractsRouter);
+
+
+app.use('/', indexRouter)
+
 
 // Routes
 app.get('/', (req, res) => {

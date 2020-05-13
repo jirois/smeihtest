@@ -1,4 +1,4 @@
-const Setting = require('../models/setting');
+const Setting = require('../models/settings');
 
 
 const settingCreate = (req, res) => {
